@@ -1,0 +1,52 @@
+services:
+  mariadb:
+    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/mariadb
+    image: mariadb:mt_j
+    container_name: mariadb
+    env_file:
+      - .env
+    networks:
+      - incepction
+    volumes:
+      - db:/var/lib/mysql
+  wordpress:
+    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/wordpress
+    image: wordpress:mt_j
+    container_name: wordpress
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpressFiles:/var/www/html/wordpress
+    networks:
+      - incepction
+    restart: always
+  nginx:
+    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/nginx
+    image: nginx:mt_j
+    container_name: nginx
+    ports:
+      - 443:443
+    volumes:
+      - wordpressFiles:/var/www/html/wordpress
+    networks:
+      - incepction
+    depends_on:
+      - wordpress
+    restart: always
+  adminer:
+    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/bonus/adminer
+    image: adminer:mt_j
+    networks:
+      - incepction
+    ports:
+      - 8080:8080
+
+volumes:
+  db: {}
+  wordpressFiles: {}
+
+networks:
+  incepction:
+  
