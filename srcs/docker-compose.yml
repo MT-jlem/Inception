@@ -1,6 +1,6 @@
 services:
   mariadb:
-    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/mariadb
+    build: requirements/mariadb
     image: mariadb:mt_j
     container_name: mariadb
     env_file:
@@ -10,7 +10,7 @@ services:
     volumes:
       - db:/var/lib/mysql
   wordpress:
-    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/wordpress
+    build: requirements/wordpress
     image: wordpress:mt_j
     container_name: wordpress
     env_file:
@@ -23,7 +23,7 @@ services:
       - incepction
     restart: always
   nginx:
-    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/nginx
+    build: requirements/nginx
     image: nginx:mt_j
     container_name: nginx
     ports:
@@ -36,12 +36,44 @@ services:
       - wordpress
     restart: always
   adminer:
-    build: /Users/mjlem/Desktop/42_cursus/inception/srcs/requirements/bonus/adminer
+    build: requirements/bonus/adminer
     image: adminer:mt_j
+    container_name: adminer
+    networks:
+      - incepction
+    ports:
+      - 8081:8080
+  cadvisor:
+    build: requirements/bonus/cadvisor
+    image: cadvisor:mt_j
+    container_name: cadvisor
     networks:
       - incepction
     ports:
       - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+  website:
+    build: requirements/bonus/website
+    image: website:mt_j
+    container_name: website
+    networks:
+      - incepction
+    ports:
+      - 1337:80
+  redis:
+    build: requirements/bonus/redis
+    image: redis:mt_j
+    container_name: redis
+    networks:
+      - incepction
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpressFiles:/var/www/html
 
 volumes:
   db: {}
@@ -49,4 +81,5 @@ volumes:
 
 networks:
   incepction:
+    name: incepction
   

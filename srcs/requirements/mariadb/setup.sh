@@ -5,8 +5,6 @@ sed -i "s|/run/mysqld/mysqld.sock|/var/run/mysqld/mysqld.sock|g"  /etc/mysql/mar
 
 service mysql start
 
-sleep 5
-
 mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
 mysql -e "CREATE USER IF NOT EXISTS '$DB_USER_NAME'@'%' IDENTIFIED BY '$DB_USER_PASSWD';"
 mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* to '$DB_USER_NAME'@'%';"
