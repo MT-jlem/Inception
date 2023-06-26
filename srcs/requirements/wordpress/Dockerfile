@@ -11,4 +11,4 @@ COPY setup.sh /
 
 EXPOSE 9000
 
-CMD ["bash", "/setup.sh"]
+ENTRYPOINT ["bash", "/setup.sh"]

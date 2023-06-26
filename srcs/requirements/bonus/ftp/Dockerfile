@@ -8,4 +8,4 @@ EXPOSE 21
 
 RUN chmod +x setup.sh
 
-CMD [ "bash", "setup.sh" ]
+ENTRYPOINT [ "bash", "setup.sh" ]

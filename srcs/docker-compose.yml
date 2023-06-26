@@ -94,8 +94,15 @@ services:
 
 volumes:
   db:
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/mjlem/data/db
   wordpressFiles:
-
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/mjlem/data/wordpress
 networks:
   incepction:
     name: incepction
