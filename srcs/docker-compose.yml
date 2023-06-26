@@ -74,10 +74,27 @@ services:
       - wordpress
     volumes:
       - wordpressFiles:/var/www/html
+  ftp:
+    container_name: ftp
+    build: ./requirements/bonus/ftp/
+    image: ftp:mt_j
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpressFiles:/home/mjlem/ftp/files
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "20:20"
+      - "40000-40005:40000-40005"
+    networks:
+      - incepction
+    restart: always
 
 volumes:
-  db: {}
-  wordpressFiles: {}
+  db:
+  wordpressFiles:
 
 networks:
   incepction:

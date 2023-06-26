@@ -6,4 +6,6 @@ COPY setup.sh /
 
 EXPOSE 21
 
-CMD [ "bash" ]
+RUN chmod +x setup.sh
+
+CMD [ "bash", "setup.sh" ]
