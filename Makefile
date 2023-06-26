@@ -9,6 +9,7 @@ build:
 clean:
 	docker-compose -f ./srcs/docker-compose.yml down -v
 	-docker rmi $$(docker images -q)
+	-rm -rf ~/data/db && rm -rf ~/data/wordpress
 
 purge:
 	-docker rm $$(docker ps -aq)
