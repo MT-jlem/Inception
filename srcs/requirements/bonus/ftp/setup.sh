@@ -11,11 +11,9 @@ echo "$FTP_USER:$FTP_PASSWD" | chpasswd
 echo "$FTP_USER" >> /etc/vsftpd.userlist
 
 mkdir -p /home/$FTP_USER/ftp
-
-chown nobody:nogroup /home/$FTP_USER/ftp
 chmod a-w /home/$FTP_USER/ftp
-
 mkdir -p /home/$FTP_USER/ftp/files
+
 chown -R $FTP_USER:$FTP_USER /home/$FTP_USER/ftp
 chmod -R 755 /home/$FTP_USER/ftp
 
